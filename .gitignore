@@ -1,0 +1,10 @@
+.DS_Store
+*.py[co]
+*.sublime-workspace
+/venv/
+/build/
+/dist/
+*.egg-info/
+/virtualenv.py
+/setuptools-*.tar.gz
+/pip-*.tar.gz

@@ -1,0 +1,24 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+            "folder_exclude_patterns": [
+            	"*.egg-info",
+            	"venv",
+                "build",
+                "dist"
+            	],
+            "file_exclude_patterns": [
+                "*.tar.gz",
+                "*.sublime-workspace"
+            	]
+		}
+	],
+	"settings":
+	{
+		"tab_size": 4,
+    	"translate_tabs_to_spaces": true,
+    	"default_encoding": "UTF-8"
+	}
+}
