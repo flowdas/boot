@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(os.path.join(os.getcwd(),__file__))
 VENV_EXE = 'venv\\Scripts\\python.exe' if sys.platform == 'win32' else 'venv/bin/python'
 
 def samefile(path1, path2):
+    path1, path2 = map(os.path.abspath, (path1, path2))
     return os.path.normpath(path1) == os.path.normpath(path2)
 
 def fetch(url, hash):
