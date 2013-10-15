@@ -4,7 +4,7 @@
 
 Usage::
     git init
-    curl -O https://github.com/flowdas/boot/raw/master/boot.py
+    curl -O https://raw.github.com/flowdas/boot/master/boot.py
     python boot.py
 """
 __version__ = "1.0a1"
