@@ -3,6 +3,7 @@
 """Bootstrap a python project
 
 Usage::
+    cd new-project-dir
     git init
     curl -O https://raw.github.com/flowdas/boot/master/boot.py
     python boot.py
@@ -23,7 +24,7 @@ if sys.version_info < (2, 6):
     sys.exit(1)
 
 BASE_DIR = os.path.dirname(os.path.join(os.getcwd(),__file__))
-VENV_EXE = 'venv\\Scripts\\python.exe' if sys.platform == 'win32' else 'venv/bin/python'
+VENV_EXE = 'boot\\Scripts\\python.exe' if sys.platform == 'win32' else 'boot/bin/python'
 
 def samefile(path1, path2):
     path1, path2 = map(os.path.abspath, (path1, path2))
@@ -60,7 +61,7 @@ def install_venv():
         'https://pypi.python.org/packages/source/p/pip/pip-1.4.1.tar.gz',
         '9766254c7909af6d04739b4a7732cc29e9a48cb0',
         )
-    subprocess.call([sys.executable, 'virtualenv.py', '-q', 'venv'])
+    subprocess.call([sys.executable, 'virtualenv.py', '-q', 'boot'])
 
 SETUP_PY = """# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
@@ -98,7 +99,7 @@ MANIFEST_IN = """include boot.py
 GITIGNORE = """.DS_Store
 *.py[co]
 *.sublime-workspace
-/venv/
+/boot/
 /build/
 /dist/
 *.egg-info/
@@ -140,9 +141,9 @@ def main():
     setup_git()
     if not samefile(sys.executable, VENV_EXE):
         if sys.platform == 'win32':
-            command = 'venv\\Scripts\\activate'
+            command = 'boot\\Scripts\\activate'
         else:    
-            command = 'source venv/bin/activate'
+            command = 'source boot/bin/activate'
         print('Now you can run "%s"' % command)
 
 if __name__=='__main__':
