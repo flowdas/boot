@@ -64,6 +64,7 @@ def install_venv():
     subprocess.call([sys.executable, 'virtualenv.py', '-q', 'boot'])
 
 SETUP_PY = """# -*- coding: utf-8 -*-
+import sys
 from setuptools import setup, find_packages
 
 setup_requires = [
@@ -71,6 +72,14 @@ setup_requires = [
 
 install_requires = [
     ]
+
+tests_require = [
+    'nose==1.3.0',
+    'coverage==3.7',
+    ]
+
+if sys.version_info < (2, 7):
+    tests_require.append('unittest2==0.5.1')
 
 dependency_links = [
     ]
@@ -84,7 +93,12 @@ setup(
     packages=find_packages(),
     install_requires=install_requires,
     setup_requires=setup_requires,
+    tests_require=tests_require,
+    extras_require={
+        'test': tests_require,
+        },
     dependency_links=dependency_links,
+    test_suite='nose.collector',
     scripts=[],
     entry_points={
         'console_scripts': [
@@ -93,16 +107,24 @@ setup(
     )
 """
 
-MANIFEST_IN = """include boot.py
+SETUP_CFG = """[nosetests]
+with-coverage=1
+cover-package=flowdas
+"""
+
+MANIFEST_IN = """include boot.py setup.cfg
 """
 
 GITIGNORE = """.DS_Store
 *.py[co]
-*.sublime-workspace
+/*.sublime-workspace
+/.idea/workspace.xml
 /boot/
 /build/
 /dist/
-*.egg-info/
+/*.egg-info/
+/*.egg/
+/.coverage
 /virtualenv.py
 /setuptools-*.tar.gz
 /pip-*.tar.gz
@@ -130,6 +152,7 @@ def setup_git():
 
 def install_setup():
     create('setup.py', SETUP_PY)
+    create('setup.cfg', SETUP_CFG)
     create('MANIFEST.in', MANIFEST_IN)
     subprocess.call([VENV_EXE, 'setup.py', '-q', 'develop'])
 
